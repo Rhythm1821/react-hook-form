@@ -12,12 +12,19 @@ function App() {
     })
   }
   const onSubmit = async (data) => {
-    await delay(4)
-    console.log(data);
-    if (data.username !== "Dummy AuthCheck") {
-      setError("autherror", { message: "Dummy authentication failed" })
+
+    try {
+        // authentication logic
+        await delay(4)
+    } catch (error) {
+        console.log(error);
+        setError("autherror", { message: error?.response?.data?.detail || "Something went wrong" })
+    } finally {
+        setTimeout(() => {
+            reset()
+        }, 4000)
     }
-  }
+}
 
   return (
     <>
